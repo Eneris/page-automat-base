@@ -38,7 +38,7 @@ export default class Browser {
 
         this.instance = await Puppeteer.launch({
             userDataDir: '.userData',
-            headless: Boolean(DEBUG),
+            headless: DEBUG >= 3,
             args: [
                 '--no-sandbox',
                 '--disable-setuid-sandbox'
@@ -57,22 +57,20 @@ export default class Browser {
             isLandscape: true
         })
 
-        if (DEBUG) {
-            if (DEBUG > 1) {
-                this.page.on('request', (request: any) => handleLog('REQUEST', request.url()))
-                this.page.on('console', (msg: any) => handleLog('CONSOLE', msg._text))
-            }
-
-            this.page.on('pageerror', (err: Error) => {
-                handleLog('PAGE Error')
-                handleError(err)
-            })
+        if (DEBUG >= 2) {
+            this.page.on('request', (request: any) => handleLog('REQUEST', request.url()))
+            this.page.on('console', (msg: any) => handleLog('CONSOLE', msg._text))
         }
+
+        this.page.on('pageerror', (err: Error) => {
+            handleLog('PAGE Error')
+            handleError(err)
+        })
 
         await this.page.goto(PAGE_HOME)
 
         if (RELOAD_TIMER) {
-            handleLog('Setting up periodic restarter')
+            if (DEBUG) handleLog('Setting up periodic restarter')
             this.restartTimer = setTimeout(() => this.init(), RELOAD_TIMER)
         }
 
@@ -85,7 +83,7 @@ export default class Browser {
     }
 
     public async screenshot(fileName: string, options = {}) {
-        if (DEBUG > 1) handleLog('getting screenshot')
+        if (DEBUG) handleLog('getting screenshot')
         return this.page.screenshot({ path: fileName, ...options })
     }
 
