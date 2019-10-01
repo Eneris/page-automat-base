@@ -1,0 +1,29 @@
+{
+    "name": "page-automat-base",
+    "version": "1.0.0",
+    "description": "Base for my page automation projects",
+    "main": "index.js",
+    "repository": {
+        "url": "git@github.com:Eneris/page-automat-base.git"
+    },
+    "scripts": {
+        "test": "npx eslint ./src",
+        "build": "npx tsc",
+        "watch": "npm run build -- --watch"
+    },
+    "keywords": [
+        "slack"
+    ],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "puppeteer": "^1.20.0"
+    },
+    "devDependencies": {
+        "@types/puppeteer": "^1.20.0",
+        "@typescript-eslint/eslint-plugin": "^2.3.2",
+        "@typescript-eslint/parser": "^2.3.2",
+        "eslint": "^6.5.1",
+        "typescript": "^3.6.3"
+    }
+}
