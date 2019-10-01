@@ -9,7 +9,8 @@
     "scripts": {
         "test": "npx eslint ./src",
         "build": "npx tsc",
-        "watch": "npm run build -- --watch"
+        "watch": "npm run build -- --watch",
+        "start": "node build/index.js"
     },
     "keywords": [
         "slack"
