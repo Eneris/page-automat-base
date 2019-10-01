@@ -15,7 +15,7 @@ export default class Browser {
     public page: any;
     public instance: any;
 
-    private constructor() {
+    constructor() {
         this.instance = null
         this.page = null
         this.restartTimer = null;
@@ -38,7 +38,7 @@ export default class Browser {
 
         this.instance = await Puppeteer.launch({
             userDataDir: '.userData',
-            headless: DEBUG >= 3,
+            headless: !(DEBUG >= 3),
             args: [
                 '--no-sandbox',
                 '--disable-setuid-sandbox'
